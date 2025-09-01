@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
 
-export default function About() {
+export default function join_event() {
   return (
     <div className={styles.container}>
       <Head>
@@ -48,7 +48,7 @@ export default function About() {
         <div className={styles.container}>
           <div className={styles.footerContent}>
             <div className={styles.footerColumn}>
-              <h3>Donate to MeetUp</h3>
+              <h3>Donate to Kaigan</h3>
               <div className={styles.socialLinks}>
                 <a href="#"><i className="fab fa-github"></i></a>
               </div>
