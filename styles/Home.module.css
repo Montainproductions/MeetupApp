@@ -127,6 +127,18 @@
   transition: background-color 0.3s;
 }
 
+.ctaButtonSmall {
+  display: inline-block;
+  background-color: #2563eb;
+  color: white;
+  padding: 4px 4px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
 .ctaButton:hover {
   background-color: #1e40af;
 }
@@ -165,7 +177,6 @@
   border-bottom: 2px solid #e2e8f0;
 }
 
-
 .submitButton {
   padding: 14px 25px;
   background-color: #3b82f6;
@@ -193,16 +204,373 @@
   gap: 8px;
 }
 
-/* Features Section */
-.features {
-  padding: 80px 0;
+/* Calander */
+
+.scheduleContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 25px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 300;
+  font-size: 1rem;
+  color: #374151;
+  cursor: pointer;
+}
+
+.checkboxInput {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.scheduleOptions {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 2px solid #e5e7eb;
+}
+
+.timeSlots {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.timeInputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.inputLabel {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 1.1rem;
+}
+
+.timeInput {
+  padding: 12px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.timeInput:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.calendarSection {
+  margin-top: 25px;
 }
 
 .sectionTitle {
   text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 50px;
+  font-size: 1.4rem;
+  color: #1e293b;
+  margin-bottom: 20px;
+}
+
+.calendarModeSelector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.modeButton {
+  padding: 10px 20px;
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.modeButton:hover {
+  background-color: #e2e8f0;
+}
+
+.activeMode {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.calendarTitle {
+  font-size: 1.2rem;
+  color: #374151;
+  margin-bottom: 15px;
+}
+
+.dateCalendar {
+  margin-bottom: 25px;
+}
+
+.dateGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.dateCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+}
+
+.dateCell:hover {
+  border-color: #3b82f6;
+  background-color: #f0f9ff;
+}
+
+.selectedDate {
+  background-color: #dbeafe;
+  border-color: #3b82f6;
   color: #1e40af;
+}
+
+.month {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.day {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+
+.weekday {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.daySelector {
+  margin-bottom: 25px;
+}
+
+.dayGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.dayCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 5px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-weight: 600;
+}
+
+.dayCell:hover {
+  border-color: #3b82f6;
+  background-color: #f0f9ff;
+}
+
+.selectedDay {
+  background-color: #dbeafe;
+  border-color: #3b82f6;
+  color: #1e40af;
+}
+
+.selectionSummary {
+  padding: 20px;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+}
+
+.selectionSummary h4 {
+  margin: 0 0 15px 0;
+  color: #1e40af;
+}
+
+.selectionSummary p {
+  margin: 8px 0;
+  color: #374151;
+}
+
+/* Calander end */
+
+/* List */
+
+.quantityControl {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  padding: 5px;
+}
+
+.quantityBtn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background-color: #e2e8f0;
+  color: #475569;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantityBtn:hover {
+  background-color: #cbd5e1;
+}
+
+.quantityDisplay {
+  min-width: 40px;
+  text-align: center;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.addButton {
+  width: 46px;
+  height: 46px;
+  border: none;
+  border-radius: 8px;
+  background-color: #10b981;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.addButton:hover:not(:disabled) {
+  background-color: #059669;
+}
+
+.addButton:disabled {
+  background-color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.checkmarkIcon {
+  color: white;
+}
+
+.itemsList {
+  background-color: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.listTitle {
+  font-size: 1.5rem;
+  color: #1e293b;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px 20px;
+  color: #64748b;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #e2e8f0;
+  transition: background-color 0.3s;
+}
+
+.listItem:hover {
+  background-color: #f8fafc;
+}
+
+.listItem:last-child {
+  border-bottom: none;
+}
+
+.itemInfo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.itemName {
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.itemQuantity {
+  background-color: #dbeafe;
+  color: #1e40af;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.deleteButton {
+  border: none;
+  background: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deleteButton:hover {
+  color: #ef4444;
+  background-color: #fef2f2;
+}
+
+/* List End */
+
+/* Features Section */
+.features {
+  padding: 80px 0;
 }
 
 .featuresGrid {
@@ -311,7 +679,6 @@
   padding: 20px 10px 0;
 }
 
-/* Responsive Design */
 /* Responsive Design */
 @media (max-width: 900px) {
   .threeColumnForm {

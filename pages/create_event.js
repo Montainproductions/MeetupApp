@@ -65,6 +65,90 @@ export default function create_event() {
     alert('Event submitted successfully!');
   };
 
+  /* Calender */
+  const [isCalenderActive, setIsCalenderActive] = useState(false);
+  const [isListActive, setIsListActive] = useState(false);
+  const [startTime, setStartTime] = useState('09:00');
+  const [endTime, setEndTime] = useState('17:00');
+  const [calendarMode, setCalendarMode] = useState('specific'); // 'specific' or 'general'
+  const [selectedDates, setSelectedDates] = useState([]);
+  const [selectedDays, setSelectedDays] = useState([]);
+
+  const handleCalanderCheckboxChange = () => {
+    setIsCalenderActive(!isCalenderActive);
+  };
+
+  const handleListCheckboxChange = () => {
+    setIsListActive(!isListActive);
+  };
+
+  const handleDateSelect = (date) => {
+    if (selectedDates.includes(date)) {
+      setSelectedDates(selectedDates.filter(d => d !== date));
+    } else {
+      setSelectedDates([...selectedDates, date]);
+    }
+  };
+
+  const handleDaySelect = (day) => {
+    if (selectedDays.includes(day)) {
+      setSelectedDays(selectedDays.filter(d => d !== day));
+    } else {
+      setSelectedDays([...selectedDays, day]);
+    }
+  };
+
+  // Generate sample dates for the calendar
+  const generateDates = () => {
+    const dates = [];
+    const today = new Date();
+    for (let i = 0; i < 28; i++) {
+      const date = new Date();
+      date.setDate(today.getDate() + i);
+      dates.push(date);
+    }
+    return dates;
+  };
+
+  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+  /* List */
+  const [objectName, setObjectName] = useState('');
+  const [quantity, setQuantity] = useState(1);
+  const [items, setItems] = useState([]);
+  
+  const handleAddItem = () => {
+    if (objectName.trim() === '') {return};
+    
+    const newItem = {
+      id: Date.now(),
+      name: objectName.trim(),
+      quantity: quantity
+    };
+    
+    setItems([...items, newItem]);
+    setObjectName('');
+    setQuantity(1);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {handleAddItem();}
+  };
+
+  const handleIncrement = () => {
+    setQuantity(prev => prev + 1);
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity(prev => prev - 1);
+    }
+  };
+
+  const removeItem = (id) => {
+    setItems(items.filter(item => item.id !== id));
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -153,21 +237,110 @@ export default function create_event() {
             <br></br>
             <br></br>
             <br></br>
-            <h2 className={styles.columnTitle}>Settings & Options</h2>
+            <h2 className={styles.columnTitle}>Calender & Item List</h2>
             
-            <div className={styles.inputGroup}>
-              <label className={styles.checkboxLabel}>
-                <input type="checkbox" name="sendCalenderEvent" checked={eventData.sendCalenderEvent} onChange={handleInputChange}/>
-                <span>Calender event</span>
-              </label>
-            </div>
+            <label className={styles.checkboxLabel}>
+              <input type="checkbox" checked={isCalenderActive} onChange={handleCalanderCheckboxChange} className={styles.checkboxInput}/>
+              <span>Enable Calender</span>
+            </label>
 
-            <div className={styles.inputGroup}>
-              <label className={styles.checkboxLabel}>
-                <input type="checkbox" name="sendItemList" checked={eventData.sendItemList} onChange={handleInputChange}/>
-                <span>Item List</span>
-              </label>
-            </div>
+            {isCalenderActive && (
+              <div className={styles.scheduleOptions}>
+                <h3 className={styles.sectionTitle}>Time period</h3>
+                <div className={styles.timeSlots}>
+                  <div className={styles.timeInputGroup}>
+                    <label className={styles.inputLabel}>Start Time</label>
+                    <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} className={styles.timeInput}/>
+                  </div>
+                  <div className={styles.timeInputGroup}>
+                    <label className={styles.inputLabel}>End Time</label>
+                    <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} className={styles.timeInput}/>
+                  </div>
+                </div>
+
+                <div className={styles.calendarSection}>
+                  <div className={styles.calendarModeSelector}>
+                    <button className={`${styles.ctaButton} ${calendarMode === 'specific' ? styles.activeMode : ''}`} onClick={() => setCalendarMode('specific')}>Specific Dates</button>
+                    <button className={`${styles.ctaButton} ${calendarMode === 'general' ? styles.activeMode : ''}`} onClick={() => setCalendarMode('general')}>Days of Week</button>
+                  </div>
+                  {calendarMode === 'specific' && (
+                    <div className={styles.dateCalendar}>
+                      <h4 className={styles.sectionTitle}>Select Specific Dates</h4>
+                      <div className={styles.dateGrid}>
+                        {generateDates().map((date, index) => {
+                          const dateString = date.toISOString().split('T')[0];
+                          const day = date.getDate();
+                          const month = date.toLocaleString('default', { month: 'short' });
+                          const isSelected = selectedDates.includes(dateString);
+                          
+                          return (
+                            <div key={index} className={`${styles.dateCell} ${isSelected ? styles.selectedDate : ''}`} onClick={() => handleDateSelect(dateString)}>
+                              <div className={styles.month}>{month}</div>
+                              <div className={styles.day}>{day}</div>
+                              <div className={styles.weekday}>{date.toLocaleString('default', { weekday: 'short' })}</div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                  {calendarMode === 'general' && (
+                    <div className={styles.daySelector}>
+                      <h4 className={styles.calendarTitle}>Select Day(0) of the Week</h4>
+                      <div className={styles.dayGrid}>
+                        {daysOfWeek.map((day, index) => {
+                          const isSelected = selectedDays.includes(day);
+                          return (
+                            <div key={index} className={`${styles.dayCell} ${isSelected ? styles.selectedDay : ''}`} onClick={() => handleDaySelect(day)}>{day.substring(0, 3)}</div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className={styles.selectionSummary}>
+                    <h3>Current Selection:</h3>
+                    {calendarMode === 'specific' && selectedDates.length > 0 && (<p>Selected Dates: {selectedDates.join(', ')}</p>)}
+                    {calendarMode === 'general' && selectedDays.length > 0 && (<p>Selected Days: {selectedDays.join(', ')}</p>)}
+                    {(calendarMode === 'specific' && selectedDates.length === 0) ||(calendarMode === 'general' && selectedDays.length === 0) ? (<p>No selection made yet</p>) : null}
+                    <p>Time: {startTime} - {endTime}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <label className={styles.checkboxLabel}>
+              <input type="checkbox" checked={isListActive} onChange={handleListCheckboxChange} className={styles.checkboxInput}/>
+              <span>Enable Event Item List</span>
+            </label>
+
+            {isListActive && (
+              <div className={styles.objectInputContainer}>
+                <input type="text" value={objectName} onChange={(e) => setObjectName(e.target.value)} onKeyPress={handleKeyPress} placeholder="Enter object name" className={styles.objectInput}/>
+
+                <br></br>
+                <br></br>
+                
+                <button onClick={handleDecrement} className={styles.ctaButtonSmall} aria-label="Decrease quantity">-</button>
+                <span className={styles.quantityDisplay}>{quantity}</span>
+                <button onClick={handleIncrement} className={styles.ctaButtonSmall} aria-label="Increase quantity">+</button>
+
+                <br></br>
+                <br></br>
+
+                <button 
+                  onClick={handleAddItem}
+                  className={styles.addButton}
+                  disabled={objectName.trim() === ''}
+                  aria-label="Add item to list"
+                >
+                  <svg className={styles.checkmarkIcon} viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                  </svg>
+                </button>
+              </div>
+
+            )}
           </div>
         </form>
       </main>
