@@ -316,6 +316,7 @@ export default function create_event() {
 
             {isListActive && (
               <div className={styles.objectInputContainer}>
+                <h3 className={styles.sectionTitle}>Item List</h3>
                 <input type="text" value={objectName} onChange={(e) => setObjectName(e.target.value)} onKeyPress={handleKeyPress} placeholder="Enter object name" className={styles.textInput}/>
 
                 <br></br>
@@ -358,6 +359,20 @@ export default function create_event() {
                       ))}
                     </ul>
                   )}
+                  <div className={styles.inputGroup}>
+                  <label className={styles.inputLabel}>Item list visibility</label>
+                  <div>*Allow people to see who is bringing what items</div>
+                  <div className={styles.radioGroup}>
+                    <label className={styles.radioLabel}>
+                      <input type="radio" name="isPublic" checked={eventData.inputLabel} onChange={() => setEventData({...eventData, isPublic: true})}/>
+                      <span>Public List</span>
+                    </label>
+                    <label className={styles.radioLabel}>
+                      <input type="radio" name="isPublic" checked={!eventData.isPublic} onChange={() => setEventData({...eventData, isPublic: false})}/>
+                      <span>Private List</span>
+                    </label>
+                  </div>
+                </div>
                 </div>
               </div>
             )}
