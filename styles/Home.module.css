@@ -463,7 +463,6 @@
   color: white;
   cursor: pointer;
   transition: background-color 0.3s;
-  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -564,6 +563,11 @@
 .deleteButton:hover {
   color: #ef4444;
   background-color: #fef2f2;
+}
+
+.objectInputContainer {
+  align-items: center;
+  justify-content: center; /* This centers the children */
 }
 
 /* List End */
@@ -693,6 +697,25 @@
   
   .pageTitle {
     font-size: 2rem;
+  }
+
+  .objectInputContainer {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+  }
+  
+  .quantityControl {
+    align-self: center;
+  }
+  
+  .inputSection,
+  .itemsList {
+    padding: 20px;
+  }
+  
+  .pageTitle {
+    font-size: 1.8rem;
   }
 }
 

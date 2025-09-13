@@ -316,21 +316,19 @@ export default function create_event() {
 
             {isListActive && (
               <div className={styles.objectInputContainer}>
-                <input type="text" value={objectName} onChange={(e) => setObjectName(e.target.value)} onKeyPress={handleKeyPress} placeholder="Enter object name" className={styles.objectInput}/>
+                <input type="text" value={objectName} onChange={(e) => setObjectName(e.target.value)} onKeyPress={handleKeyPress} placeholder="Enter object name" className={styles.textInput}/>
 
                 <br></br>
                 <br></br>
                 
-                <button onClick={handleDecrement} className={styles.ctaButtonSmall} aria-label="Decrease quantity">-</button>
-                <span className={styles.quantityDisplay}>{quantity}</span>
-                <button onClick={handleIncrement} className={styles.ctaButtonSmall} aria-label="Increase quantity">+</button>
+                <button onClick={handleDecrement} className={styles.ctaButtonSmall} aria-label="Decrease quantity">- </button>
+                <span className={styles.quantityDisplay}> {quantity} </span>
+                <button onClick={handleIncrement} className={styles.ctaButtonSmall} aria-label="Increase quantity"> +</button>
 
                 <br></br>
                 <br></br>
 
-                <button 
-                  onClick={handleAddItem}
-                  className={styles.addButton}
+                <button onClick={handleAddItem} className={styles.addButton}
                   disabled={objectName.trim() === ''}
                   aria-label="Add item to list"
                 >
@@ -338,8 +336,30 @@ export default function create_event() {
                     <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
                   </svg>
                 </button>
-              </div>
 
+                <div className={styles.itemsList}>
+                  <h2 className={styles.listTitle}>Items List:</h2>
+                  {items.length === 0 ? (
+                    <div className={styles.emptyState}><p>No items added yet. Start by adding an item above.</p></div>
+                  ) : (
+                    <ul className={styles.list}>
+                      {items.map((item) => (
+                        <li key={item.id} className={styles.listItem}>
+                          <div className={styles.itemInfo}>
+                            <span className={styles.itemName}>{item.name}</span>
+                            <span className={styles.itemQuantity}>x{item.quantity}</span>
+                          </div>
+                          <button onClick={() => removeItem(item.id)} className={styles.deleteButton} aria-label={`Remove ${item.name}`}>
+                            <svg viewBox="0 0 24 24" width="18" height="18">
+                              <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            </svg>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
             )}
           </div>
         </form>
